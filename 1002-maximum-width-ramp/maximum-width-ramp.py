@@ -8,12 +8,12 @@ class Solution:
             if not stack or nums[stack[-1]] > nums[i]:
                 stack.append(i)
         # return stack
-        max_width = 0
+        mx = 0
 
        
         for j in range(n - 1, -1, -1):
             while stack and nums[stack[-1]] <= nums[j]:
                 i = stack.pop()
-                max_width = max(max_width, j - i)
+                mx = max(mx, j - i)
 
-        return max_width
+        return mx
