@@ -3,11 +3,10 @@ class Solution:
         stack = [0]
 
         for char in s:
-            if char == '(':
+            if char == "(":
                 stack.append(0)
             else:
                 val = stack.pop()
-                score = max(2 * val, 1) 
-                stack[-1] += score
-
+                val = max(val*2, 1)
+                stack[-1] += val
         return stack[0]
