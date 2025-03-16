@@ -2,11 +2,11 @@ class Solution:
     def deckRevealedIncreasing(self, deck: List[int]) -> List[int]:
         deck.sort()
     
-        queue = deque()
+        myque = deque()
         
         for card in reversed(deck):
-            if queue:
-                queue.appendleft(queue.pop())
-            queue.appendleft(card)
+            if myque:
+                myque.appendleft(myque.pop())
+            myque.appendleft(card)
         
-        return list(queue)
+        return list(myque)
