@@ -1,6 +1,6 @@
 class Solution:
     def containsDuplicate(self, nums: List[int]) -> bool:
-        n = len(nums)
+        # n = len(nums)
         unique = set()
 
         for num in nums:
