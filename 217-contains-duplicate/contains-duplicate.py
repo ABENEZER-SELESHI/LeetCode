@@ -3,7 +3,8 @@ class Solution:
         # n = len(nums)
         
         count = Counter(nums)
-
-        if len(count) == len(nums):
+        left = len(count)
+        right = len(nums)
+        if left == right:
             return False
         return True
