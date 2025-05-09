@@ -5,7 +5,7 @@ class Solution:
         directions = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 
         graph = defaultdict(list)
-        indegree = [0] * n*m
+        outdegree = [0] * n*m
 
         index = [[0 for i in range(m)] for i in range(n)]
         ind = 0
@@ -26,18 +26,17 @@ class Solution:
                 l_col = col - 1
                 r_col = col + 1
 
-                if inbound(d_row, col) and matrix[d_row][col] < val:
-                    indegree[index[row][col]] += 1
+                if inbound(d_row, col) and matrix[d_row][col] > val:
+                    outdegree[index[row][col]] += 1
                 
-                elif inbound(u_row, col) and matrix[u_row][col] < val:
-                    indegree[index[row][col]] += 1
+                if inbound(u_row, col) and matrix[u_row][col] > val:
+                    outdegree[index[row][col]] += 1
                 
-                elif inbound(row, r_col) and matrix[row][r_col] < val:
-                    indegree[index[row][col]] += 1
+                if inbound(row, r_col) and matrix[row][r_col] > val:
+                    outdegree[index[row][col]] += 1
 
-                elif inbound(row, l_col) and matrix[row][l_col] < val:
-                    indegree[index[row][col]] += 1
-        @cache
+                if inbound(row, l_col) and matrix[row][l_col] > val:
+                    outdegree[index[row][col]] += 1
         def dfs(row, col):
             res = 1
 
@@ -49,13 +48,30 @@ class Solution:
                     res = max(res, 1 + dfs(x, y))
             
             return res
-        ans = 1
+        ans = 0
+        que = deque()
         for i in range(n):
             for j in range(m):
-                if indegree[index[i][j]] == 0:
-                    ans = max(ans, dfs(i, j))
+                if outdegree[index[i][j]] == 0:
+                    que.append((i, j))
+        
 
-        return ans        
+        while que:
+            ans += 1
+
+            new_que = deque()
+            for r, c in que: 
+
+                for dx, dy in directions:
+                    x = r + dx
+                    y = c + dy
+                    if inbound(x, y) and matrix[x][y] < matrix[r][c]:
+                        outdegree[index[x][y]] -= 1
+                        if outdegree[index[x][y]] == 0:
+                            new_que.append((x, y))
+            que = new_que
+        return ans
+
         
 
 
