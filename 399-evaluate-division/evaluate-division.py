@@ -19,7 +19,6 @@ class UnionFind:
 
         if root_x != root_y:
             self.parent[root_x] = root_y
-            # Adjust the weight to maintain the equation x / y = value
             self.weight[root_x] = value * self.weight[y] / self.weight[x]
 
     def isConnected(self, x, y):
