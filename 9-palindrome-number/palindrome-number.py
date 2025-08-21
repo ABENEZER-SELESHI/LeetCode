@@ -4,6 +4,9 @@ class Solution:
         left = 0
         right = len(wordNum) - 1
 
+        if x < 0 or len(wordNum) < 1:
+            return False
+
         while left < right:
             if wordNum[left] != wordNum[right]:
                 return False
