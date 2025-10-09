@@ -3,17 +3,18 @@ from typing import List
 class Solution:
     def rob(self, nums: List[int]) -> int:
         memo = {}
-        
-        def dp(i: int) -> int:
-            if i >= len(nums): 
+        l = len(nums)
+
+        def house(n):
+            if n >= l:
                 return 0
-            if i in memo:
-                return memo[i]
-            
-            robbed = nums[i] + dp(i + 2)
-            skipped = dp(i + 1)
-            
-            memo[i] = max(robbed, skipped)
-            return memo[i]
+            if n in memo:
+                return memo[n]
+            not_take = house(n + 1)
+            take = nums[n] + house(n + 2)
+
+            memo[n] = max(take, not_take)
+            return memo[n]
+        return house(0)
         
-        return dp(0)
+        
